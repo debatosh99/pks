@@ -1,0 +1,31 @@
+{
+    "eventFrequency": 400,
+    "varyEventFrequency": true,
+    "repeatWorkflow": true,
+    "timeBetweenRepeat": 1500,
+    "varyRepeatFrequency": true,
+    "steps": [{
+            "config": [{
+                    "timestamp": "now()",
+		    "timestamp": "nowTimestamp()",
+		    "method": "random('GET','POST')",
+		    "origin": "random('104.18.12.157','50.18.212.223','201.25.214.31','152.26.11.205','122.26.14.11','102.8.19.58','152.8.8.189','104.149.153.72','106.187.182.230','200.187.199.38')",
+		    "public_ip": "random('175.354.93.12','106.511.89.77','616.657.92.0','175.354.93.12','167.772.16','167.772.19')",
+		    "url": "random('https://www.hdfcbank.com/personal/securities/api/Login','https://www.hdfcbank.com/personal/api/Supplier','https://www.hdfcbank.com/personal/demat-balance/api/Customer','https://www.hdfcbank.com/personal/credit-card/api/Invoice','https://www.hdfcbank.com/personal/cards/rewards/Order','https://www.hdfcbank.com/personal/insurance/medical-insurance','https://www.hdfcbank.com/personal/insurance/medical-insurance/api/PurchaseOrder','https://www.hdfcbank.com/personal/insurance/account-details/api/PurchaseOrder','https://www.hdfcbank.com/personal/insurance/api/SalesOrderLine','https://www.hdfcbank.com/personal/api/PurchaseOrderLine')",
+		    "status": "200",
+		    "cust_id": "random('64443799','74443799','84443799','94443799','10443799','10443722','10443723','11443722','90443723','90443723')",
+		    "browser_id": "random('10','11','12','13','14','15')",
+		    "device_id": "random('20','21','22','23','24','25')",
+		    "event_timestamp": "nowTimestamp()",
+		    "time_spent": "random('120','130','140','150','160','170','180','190')",
+		    "webpage_name": "random('trading','demat','credit card','rewards','insurance','account details','finance')",
+		    "user": "random('Kayla','Hudson','Isabella','Sophia','Amy','Anthony','Alica','Stella','Ethan','Henry','Hudson','Lily','Taj','Piper','Katie','Jai','Jack','Matheus','Eliza')",
+		    "duration": "integer(50,200)",
+		    "User-Agent": "random('Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.83 Safari/535.11','Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0'",
+                    "strength": "double(1.0,10.0)"
+                }
+            ],
+            "duration": 0
+        }]
+}
+

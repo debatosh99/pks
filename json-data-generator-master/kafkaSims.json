@@ -1,0 +1,15 @@
+{
+    "workflows": [{
+            "workflowName": "kafkaSimsWorkFlow",
+            "workflowFilename": "kafkaSimsWorkFlow.json"
+        }],
+    "producers": [{
+        "type": "kafka",
+        "broker.server": "localhost",
+        "broker.port": 9092,
+        "topic": "test",
+        "flatten": false,
+        "sync": false
+
+    }]
+}
