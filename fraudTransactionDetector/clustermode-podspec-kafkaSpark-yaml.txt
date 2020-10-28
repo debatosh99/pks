@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: spark-streaming-kafka
+spec:
+  serviceAccountName: spark
+  containers:
+  - name: spark-streaming-kafka
+    args:
+    - /opt/spark/bin/spark-submit
+    - --master
+    - k8s://https://192.168.245.179:8443
+    - --deploy-mode
+    - cluster
+    - --conf 
+    - spark.driver.cores=1
+    - --conf 
+    - spark.executor.instances=1
+    - --conf 
+    - spark.kubernetes.driver.label.app=kafka-server
+    - --conf
+    - spark.kubernetes.executor.label.app=kafka-server
+    - --conf
+    - spark.kubernetes.file.upload.path='/home/debatosh/projects-debu/spark-kafka-1/debu-jars'
+    - --conf
+    - spark.kubernetes.executor.volumes.hostPath.debu-vol.mount.path='/home/debatosh/projects-debu/spark-kafka-1/checkpoint3'
+    - --conf
+    - spark.kubernetes.executor.volumes.hostPath.debu-vol.options.path='/home/debatosh/projects-debu/spark-kafka-1/checkpoint3'
+    - --conf
+    - spark.kubernetes.executor.volumes.hostPath.debu-vol.options.type=Directory
+    - --conf
+    - spark.kubernetes.driver.volumes.hostPath.debu-vol.mount.path='/home/debatosh/projects-debu/spark-kafka-1/checkpoint3'
+    - --conf
+    - spark.kubernetes.driver.volumes.hostPath.debu-vol.options.path='/home/debatosh/projects-debu/spark-kafka-1/checkpoint3'
+    - --conf
+    - spark.kubernetes.driver.volumes.hostPath.debu-vol.options.type=Directory
+    - --conf
+    - spark.kubernetes.container.image=debatosh99/spark
+    - --conf
+    - spark.kubernetes.authenticate.driver.serviceAccountName=spark
+    - --class 
+    - com.datamaking.ctv.streaming_app_demo
+    - --packages 
+    - org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0
+    - local:///opt/spark/debu/spark_structured_streaming_kafka-0.0.1-SNAPSHOT-jar-with-dependencies.jar test-input test-output 192.168.245.179:9092 earliest local:///home/debatosh/projects-debu/spark-kafka-1/checkpoint3
+    env:
+    - name: SPARK_HOME
+      value: /opt/spark
+    resources: {}
+    image: debatosh99/spark:latest
+    imagePullPolicy: Always
