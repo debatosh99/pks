@@ -1,0 +1,19 @@
+$SPARK_HOME/bin/spark-submit \
+--master k8s://https://$(minikube ip):8443 \
+--deploy-mode cluster \
+--driver-memory 500m \
+--executor-memory 500m \
+--executor-cores 1 \
+--conf spark.executor.instances=1 \
+--conf spark.kubernetes.executor.volumes.hostPath.debu-vol.mount.path='/home/debatosh/projects-debu/spark-kafka-1/checkpoint3' \
+--conf spark.kubernetes.executor.volumes.hostPath.debu-vol.options.path='/home/debatosh/projects-debu/spark-kafka-1/checkpoint3' \
+--conf spark.kubernetes.executor.volumes.hostPath.debu-vol.options.type=Directory \
+--conf spark.kubernetes.driver.volumes.hostPath.debu-vol.mount.path='/home/debatosh/projects-debu/spark-kafka-1/checkpoint3' \
+--conf spark.kubernetes.driver.volumes.hostPath.debu-vol.options.path='/home/debatosh/projects-debu/spark-kafka-1/checkpoint3' \
+--conf spark.kubernetes.driver.volumes.hostPath.debu-vol.options.type=Directory \
+--name spark-kafka \
+--conf spark.kubernetes.container.image=debatosh99/spark \
+--conf spark.kubernetes.authenticate.driver.serviceAccountName=spark \
+--class com.datamaking.ctv.streaming_app_demo \
+--packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 \
+local:///opt/spark/debu/spark_structured_streaming_kafka-0.0.1-SNAPSHOT-jar-with-dependencies.jar test-input test-output 192.168.245.179:9092 earliest /home/debatosh/projects-debu/spark-kafka-1/checkpoint3
