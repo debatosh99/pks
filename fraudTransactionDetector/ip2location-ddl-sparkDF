@@ -1,0 +1,31 @@
+CREATE DATABASE ip2location;
+USE ip2location;
+CREATE TABLE `ip2location_db9`(
+	`ip_from` INT(10) UNSIGNED,
+	`ip_to` INT(10) UNSIGNED,
+	`country_code` CHAR(2),
+	`country_name` VARCHAR(64),
+	`region_name` VARCHAR(128),
+	`city_name` VARCHAR(128),
+	`latitude` DOUBLE,
+	`longitude` DOUBLE,
+	`zip_code` VARCHAR(30),
+	INDEX `idx_ip_from` (`ip_from`),
+	INDEX `idx_ip_to` (`ip_to`),
+	INDEX `idx_ip_from_to` (`ip_from`, `ip_to`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+Import the data:-
+
+LOAD DATA LOCAL INFILE '/home/debatosh/projects-debu/spark-kafka-1/geoip-loc-csv/IP2LOCATION-LITE-DB9.CSV' INTO TABLE `ip2location_db9` FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\r\n' IGNORE 0 LINES;
+
+
+val jdbcDF = spark.read
+  .format("jdbc")
+  .option("url", "jdbc:mysql://localhost:3306/ip2location?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC")
+  .option("driver", "com.mysql.jdbc.Driver")
+  .option("useUnicode", "true")
+  .option("query", "select * from ip2location.ip2location_db9 limit 10")
+  .option("user", "debu")
+  .option("password", "password")
+  .load()
